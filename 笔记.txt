@@ -14,9 +14,12 @@ diff： 深度遍历
 2、add edit delete move节点 （加入key的原因，帮助算法识别节点）
 3、text变化
 4、参数变化 
+
 每个vnode都有一个唯一标识的key、一般是框架自动处理、但是在循环内、必须由开发者指定
 在diff过程中1、3、4这三种比较简单
+
 2需要用到list-diff
+
 list-diff是对比两个列表，判断两个vnode有没有children后进行diffchildren，首先做一下list-dist，后再调用递归
 list-diff算法实现是：
 1、对比新旧列表取交集，得到旧列表要删除的index
