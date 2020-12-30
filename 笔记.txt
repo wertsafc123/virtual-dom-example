@@ -1,0 +1,29 @@
+虚拟dom：
+对浏览器意义： 提高性能（原生开发模式直接操作dom，当数据和操作过多时性能会很差，触发到重排时因为GUI和js是用同一个线程更加是灾难，这样性能很差）
+本身意义：实现跨平台框架
+
+算法步骤：
+1、render 用js对象结构表示dom树结构，然后用这个树生成新的树插入到文档中
+2、diff 当状态变更的时候，重新构造一个新的对象树，然后新旧树对比，把两个差异记录在diff对象中
+3、patch 把记录的差异应用到真实的dom树上
+
+render 用到了document.createElement/setAttribute/document.createTextNode/appendChild生成一个真实的dom树
+
+diff： 深度遍历
+1、元素变化
+2、add edit delete move节点 （加入key的原因，帮助算法识别节点）
+3、text变化
+4、参数变化 
+每个vnode都有一个唯一标识的key、一般是框架自动处理、但是在循环内、必须由开发者指定
+在diff过程中1、3、4这三种比较简单
+2需要用到list-diff
+list-diff是对比两个列表，判断两个vnode有没有children后进行diffchildren，首先做一下list-dist，后再调用递归
+list-diff算法实现是：
+1、对比新旧列表取交集，得到旧列表要删除的index
+2、对比新列表和交集列表用index一一对比，得到要插入的节点和要删除的节点
+
+如果加入了唯一key，旧列表变成新列表的过程就可以少很多步骤
+
+深度遍历：递归
+
+广度遍历：执行队列（while （queue.length > 0））
